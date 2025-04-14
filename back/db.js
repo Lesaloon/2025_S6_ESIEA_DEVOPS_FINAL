@@ -8,8 +8,7 @@ const pool = mysql.createPool({
   database: 'quiz_app',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
-  logging: true,
+  queueLimit: 0
 });
 
 module.exports = pool;
