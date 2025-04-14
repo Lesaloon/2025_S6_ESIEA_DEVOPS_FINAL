@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'all good dwdw' && exit 0",
-	"start": "node index.js"
+    "test": "jest",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9",
     "sequelize-cli": "^6.6.2"
   }
