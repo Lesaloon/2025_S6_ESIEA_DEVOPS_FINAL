@@ -1,0 +1,15 @@
+const mysql = require('mysql2/promise');
+
+const pool = mysql.createPool({
+  host: '127.0.0.1',
+  port: 3307,
+  user: 'app_user',
+  password: 'app_password',
+  database: 'quiz_app',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  logging: true,
+});
+
+module.exports = pool;
