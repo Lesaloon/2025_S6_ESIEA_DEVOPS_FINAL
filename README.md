@@ -21,8 +21,10 @@ ps 2 : l'apprem aussi a été fastidieuse, mon pc à pas arrété de bugger je m
 
 
 # Avancement
-- Crée un quizz
-- Lister les quizz
+- Crée un quiz
+- Lister les quiz
+- Editer un quiz
+- Envoyer une submision
 - CI
 - CD
 - Docker Hub

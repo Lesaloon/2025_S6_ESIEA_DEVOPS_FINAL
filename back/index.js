@@ -8,12 +8,13 @@ const app = express();
 const port = 3000;
 
 const quizRoutes = require("./routes/quiz.routes");
-
+const submissionRoutes = require("./routes/submission.routes");
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api/", quizRoutes);
+app.use("/api/", submissionRoutes);
 
 app.listen(port, () => {
 	  console.log(`Server is running on http://localhost:${port}`);
