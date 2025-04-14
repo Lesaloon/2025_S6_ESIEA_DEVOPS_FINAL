@@ -28,20 +28,15 @@ class quizController {
 		res.status(200).json(quizzes);
 	}
 
-	// async updateQuiz(req, res) {
-	// 	const { id } = req.params;
-	// 	const { name, description, questions } = req.body;
-	// 	const quiz = await quizmodel.findById(id);
-	// 	if (!quiz) {
-	// 		return res.status(404).json({ message: 'Quiz not found' });
-	// 	}
-	// 	quiz.name = name;
-	// 	quiz.description = description;
-	// 	quiz.questions = questions.map((question) => {
-	// 		return quizdetailmodel.update(question.id, question);
-	// 	});
-	// 	res.status(200).json(quiz);
-	// }
+	async updateQuiz(req, res) {
+		const { id } = req.params;
+		const { name, theme } = req.body;
+		const updatedQuiz = await quizmodel.updateQuiz(id, name, theme);
+		if (!updatedQuiz) {
+			return res.status(500).json({ message: 'Error updating quiz' });
+		}
+		res.status(200).json(updatedQuiz);
+	}
 
 }
 

@@ -41,9 +41,18 @@ async function findAllQuizzes() {
   return result[0];
 }
 
+async function updateQuiz(id, title, theme) {
+  const result = await db.query(
+    `UPDATE quizzes SET title = ?, theme = ? WHERE id = ? RETURNING *`,
+    [title, theme, id]
+  );
+  return result[0][0];
+}
+
 module.exports = {
   create,
   getQuizById,
   getQuizByIdWithQuestions,
   findAllQuizzes,
+  updateQuiz,
 };

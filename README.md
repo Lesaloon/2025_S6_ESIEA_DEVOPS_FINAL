@@ -16,3 +16,14 @@ Les tests unitaires ( backend ) et les tests fonctionnels ( frontend ) sont néc
 
 
 ps : je suis pas allez aussi loins que prévue car j'ai eu des soucis de BDD / pc au début de la scéance ( jusque 10h c'était du débugage )
+
+ps 2 : l'apprem aussi a été fastidieuse, mon pc à pas arrété de bugger je me focus sur le back pour avoire quelque commit pour montrer le CI CD
+
+
+# Avancement
+- Crée un quizz
+- Lister les quizz
+- CI
+- CD
+- Docker Hub
+- docker-compose
