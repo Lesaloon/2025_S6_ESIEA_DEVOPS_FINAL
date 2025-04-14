@@ -1,9 +1,9 @@
 jest.mock("../models/quiz.model.js", () => ({
   findById: jest.fn(),
   create: jest.fn(),
-  findByIdAndUpdate: jest.fn(),
   getQuizByIdWithQuestions: jest.fn(),
   findAllQuizzes: jest.fn(),
+  updateQuiz: jest.fn(),
 }));
 const quizController = require('../controllers/quiz.controller.js');
 const QuizModel = require('../models/quiz.model.js');
@@ -69,6 +69,27 @@ describe('Quiz Controller', () => {
             expect(res.json).toHaveBeenCalledWith(quizzes);
         });
     });
+
+	describe('updateQuiz', () => {
+		it('should update quiz and return 200', async () => {
+			const req = { params: { id: 1 }, body: { name: 'Updated Quiz', theme: 'Science' } };
+			const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+			const updatedQuiz = { id: 1, name: 'Updated Quiz', theme: 'Science' };
+			QuizModel.updateQuiz.mockResolvedValue(updatedQuiz);
+			await quizController.updateQuiz(req, res);
+			expect(QuizModel.updateQuiz).toHaveBeenCalledWith(1, 'Updated Quiz', 'Science');
+			expect(res.status).toHaveBeenCalledWith(200);
+			expect(res.json).toHaveBeenCalledWith(updatedQuiz);
+		});
+		it('should return 500 if quiz update fails', async () => {
+			const req = { params: { id: 1 }, body: { name: 'Updated Quiz', theme: 'Science' } };
+			const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+			QuizModel.updateQuiz.mockResolvedValue(null);
+			await quizController.updateQuiz(req, res);
+			expect(res.status).toHaveBeenCalledWith(500);
+			expect(res.json).toHaveBeenCalledWith({ message: 'Error updating quiz' });
+		});
+	});
 });
 
 
