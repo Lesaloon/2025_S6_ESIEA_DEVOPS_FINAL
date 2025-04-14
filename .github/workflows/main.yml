@@ -33,3 +33,43 @@ jobs:
       - name: Test du backend
         working-directory: ./back
         run: npm test
+
+  backend-build:
+    name: Backend build&push docker image
+    runs-on: ubuntu-latest
+    needs: backend
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: setup docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Inject .env file
+        run: |
+          cd back
+          echo "DB_HOST=maria-db" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          cd ../
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build & Push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./back
+          file: ./back/Dockerfile
+          push: true
+          tags: lesaloon64/devops-back:latest, lesaloon64/devops-back:${{ github.sha }}
+
+      - name: Delete .env file
+        run: |
+          cd back
+          rm .env
+          cd ../
