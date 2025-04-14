@@ -6,7 +6,7 @@ services:
     container_name: devops-back
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 3000:3000
     environment:
       - DB_HOST=maria-db
       - DB_PORT=3306
