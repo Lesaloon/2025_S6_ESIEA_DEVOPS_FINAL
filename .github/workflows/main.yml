@@ -1,0 +1,38 @@
+name: CI Pipeline
+
+permissions:
+  contents: write
+
+
+on:
+  push:
+    branches: [ main, devlop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    name: Backend CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Installation des dépendances du backend
+        working-directory: ./back
+        run: npm install
+
+      - name: Build du backend
+        working-directory: ./back
+        run: npm run build
+
+      - name: Test du backend
+        working-directory: ./back
+        run: npm test
